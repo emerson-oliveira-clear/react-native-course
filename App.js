@@ -1,50 +1,46 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList
-  } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
-import Pessoa from './src/Pessoa/index.js'
+import Slider from '@react-native-community/slider';
 
-class App extends Component{
+export default class App extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      feed:[
-        {id:'1', nome: 'Matheus', idade: 50, email: 'matheus@matheus.com'},
-        {id:'2', nome: 'Joao', idade: 22, email: 'joao@joao.com'},
-        {id:'3', nome: 'Henrique', idade: 39, email: 'henrique@henrique.com'},
-        {id:'4', nome: 'Paulo', idade: 15, email: 'paulo@paulo.com'},
-        {id:'5', nome: 'JOSE', idade: 12, email: 'jose@jose.com'},
-      ]
+        valor: 50
     };
-  }
+  };
 
-  render(){
-    return(
-      <View style={styles.container}> 
+  render() {
+    return (
+      <View style={styles.container}>
 
-      <FlatList
-      data={this.state.feed}
-      keyExtractor={(item) => item.id}
-      renderItem={ ({item}) => <Pessoa data={item} /> }
-      />
+        <Slider 
+          minimumValue={0}
+          maximumValue={100}
+          onValueChange={(valorSelecionado) => this.setState({valor: valorSelecionado})}
+          value={this.state.valor}
+          minimumTrackTintColor={'green'}
+          maximumTrackTintColor={'blue'}
+        />
 
-      </View>    
+      <Text style={{textAlign: 'center', fontSize:30}}>
+
+        {this.state.valor.toFixed(0)}
+      </Text>
+
+
+
+      </View>
     );
   }
-
 }
+
+
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
+  container: {
+    flex: 1,
+    marginTop: 20,
   }
 });
-
-export default App;
-
-
-
